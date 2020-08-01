@@ -43,11 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Library\Caller.cs" />
+    <Compile Include="Library\CallerServiceRegistry.cs" />
+    <Compile Include="Library\MonitorServices.cs" />
+    <Compile Include="Library\Service.cs" />
+    <Compile Include="Library\ServiceOutage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
