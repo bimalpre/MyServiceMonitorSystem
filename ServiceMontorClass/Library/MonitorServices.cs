@@ -116,24 +116,18 @@ namespace ServiceMontorClass.Library
         {
             while (!Token.IsCancellationRequested)
             {
+                TaskList = new List<Task>();
                 Parallel.ForEach(this.serviceList.Values.ToList(), (svc) =>
                 {
-
+                    
                     svc.ReportedConnectionStatus += ReportedConnectionStatus;
                     TaskList.Add(Task.Factory.StartNew(() => svc.DoCheckConnection(Token)));
-
-                    Task.WaitAll(TaskList.ToArray());
-                });
-                Parallel.ForEach(this.serviceList.Values.ToList(), (svc) =>
-                {
-
-                    Thread threadReg = new Thread(() => RegisterService(new object(), null));
-                    threadReg.Start();
-                    Thread threadOutage = new Thread(() => CreateServiceOutage(svc, null));
-                    threadOutage.Start();
+                    TaskList.Add(Task.Factory.StartNew(() => RegisterService(new object(), new EventArgs())));
+                    TaskList.Add(Task.Factory.StartNew(() => CreateServiceOutage(svc, new EventArgs())));
 
                 });
 
+                Task.WaitAll(TaskList.ToArray());
 
             }
 
