@@ -8,7 +8,7 @@ namespace ServiceMontorClass.Library
 {
     public class ServiceOutage
     {
-        public DateTime startTime { get; set; }
-        public DateTime endTime { get; set; }
+        public TimeSpan startTime { get; set; }
+        public TimeSpan endTime { get; set; }
     }
 }

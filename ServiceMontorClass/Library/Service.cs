@@ -25,6 +25,7 @@ namespace ServiceMontorClass.Library
         public Service()
         {
             callersList = new List<Caller>();
+            serviceOutage = null;
         }
      
 
@@ -45,19 +46,43 @@ namespace ServiceMontorClass.Library
                         pollingFrequency = 1000;
                     }
                 }
+                else
+                {
+                    pollingFrequency = value;
+                }
 
             }
         }
-
+        bool IsOutage = false;
         public void DoCheckConnection(CancellationToken Token)
         {
               
+
+
+            //
+            //DO PERFORM SERVICE OUTAGE
+            //
+            if(serviceOutage != null)
+            {
+                if( TimeBetween(DateTime.Now, serviceOutage.startTime, serviceOutage.endTime))
+                {
+                    IsOutage = true;
+                    return;
+                }
+            }
+            if (IsOutage)
+            {
+                IsOutage = false;
+                serviceOutage = null;
+            }
+
             //wait in mili seconds before checking connection
             Thread.Sleep(this.pollingFrequency);
 
             //
             //DO CHECK CONNECTION HERE
             //
+
             Random random = new Random();
 
             //This value hard-coded here, since connection check is not performed
@@ -82,6 +107,17 @@ namespace ServiceMontorClass.Library
         public void CreateServiceOutage(ServiceOutage outage)
         {
             serviceOutage = outage;
+        }
+
+        bool TimeBetween(DateTime datetime, TimeSpan start, TimeSpan end)
+        {
+            // convert datetime to a TimeSpan
+            TimeSpan now = datetime.TimeOfDay;
+            // see if start comes before end
+            if (start < end)
+                return start <= now && now <= end;
+            // start is after end, so do the inverse comparison
+            return !(end < now && now < start);
         }
 
     }
