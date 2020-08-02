@@ -9,8 +9,9 @@ namespace ServiceMontorClass.Library
 {
     public class Service
     {
-        public event EventHandler ReportConnectionStatus;
+        public event EventHandler ReportedConnectionStatus;
 
+        public MonitorServices monitorServices;
         //List of Callers regisered for the service
         public List<Caller> callersList;
         public int ServiceId { get; set; }
@@ -18,38 +19,13 @@ namespace ServiceMontorClass.Library
         public string Port { get; set; }
         public string Host { get; set; }
         //Mili seconds
-        private int pollingFrequency;
-        public string Status { get; set; }
+        public int pollingFrequency;
+        public ConnectionStatus Status { get; set; }
 
         public Service()
         {
             callersList = new List<Caller>();
         }
-        public void DoCheckConnection(CancellationToken Token)
-        {
-            while (!Token.IsCancellationRequested)
-            {
-                //wait in mili seconds before checking connection
-                Thread.Sleep(pollingFrequency);
-
-                //
-                //DO CHECK CONNECTION HERE
-                //
-
-
-                //This value hard-coded here, since connection check is not performed it always is "Ok"
-                Status = "Ok";
-
-                var eventraised = ReportConnectionStatus;
-                if (eventraised != null)
-                {
-                    //return current instance
-                    eventraised.Invoke(this, null);
-                }
-            }
-            
-        }
-
      
 
         public int PollingFrequency { get { return pollingFrequency; }
@@ -65,13 +41,43 @@ namespace ServiceMontorClass.Library
                     }
                     else
                     {
-                        //1 second
+                        //1 secondC:\code\ServiceMontorClass\ServiceMontorClass\App.config
                         pollingFrequency = 1000;
                     }
                 }
 
             }
         }
+
+        public void DoCheckConnection(CancellationToken Token)
+        {
+              
+            //wait in mili seconds before checking connection
+            Thread.Sleep(this.pollingFrequency);
+
+            //
+            //DO CHECK CONNECTION HERE
+            //
+            Random random = new Random();
+
+            //This value hard-coded here, since connection check is not performed
+            this.Status = ConnectionStatus.Connection_Up;
+            if (random.Next(0, 1000) > 900)
+                this.Status = ConnectionStatus.Connection_Down;
+
+            var eventraised = ReportedConnectionStatus;
+            if (eventraised != null)
+            {
+                //return current instance
+                eventraised.Invoke(this, null);
+            }
+
+
+
+
+        }
+
+
         private ServiceOutage serviceOutage;
         public void CreateServiceOutage(ServiceOutage outage)
         {
@@ -80,3 +86,6 @@ namespace ServiceMontorClass.Library
 
     }
 }
+
+
+

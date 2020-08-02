@@ -1,0 +1,7 @@
+C:\code\ServiceMontorClass\ServiceMontorClass\bin\Debug\ServiceMontorClass.exe.config
+C:\code\ServiceMontorClass\ServiceMontorClass\bin\Debug\ServiceMontorClass.exe
+C:\code\ServiceMontorClass\ServiceMontorClass\bin\Debug\ServiceMontorClass.pdb
+C:\code\ServiceMontorClass\ServiceMontorClass\obj\Debug\ServiceMontorClass.csprojAssemblyReference.cache
+C:\code\ServiceMontorClass\ServiceMontorClass\obj\Debug\ServiceMontorClass.csproj.CoreCompileInputs.cache
+C:\code\ServiceMontorClass\ServiceMontorClass\obj\Debug\ServiceMontorClass.exe
+C:\code\ServiceMontorClass\ServiceMontorClass\obj\Debug\ServiceMontorClass.pdb

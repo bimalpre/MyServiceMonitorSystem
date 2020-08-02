@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ServiceMontorClass.Library
 {
-    public class Caller
+    public enum ConnectionStatus
     {
-        public string CallerName { get; set; }
-        //Miliseconds
-        public int GracePeriod { get; set; }
+        Connection_Up = 0,
+        Connection_Down = 1
     }
 }

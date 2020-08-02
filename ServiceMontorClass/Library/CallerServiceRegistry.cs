@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ServiceMontorClass.Library
 {
-    class CallerServiceRegistry
+    public class CallerServiceRegistry
     {
-        public int registerId { get; set; }
-        
-        public Caller caller { get; set; }
-        public Service service { get; set; }
+
+        public Caller Caller { get; set; }
+        public Service Service { get; set; }
+       
     }
 }

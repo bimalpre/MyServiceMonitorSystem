@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Library\Caller.cs" />
     <Compile Include="Library\CallerServiceRegistry.cs" />
+    <Compile Include="Library\ConnectionStatus.cs" />
     <Compile Include="Library\MonitorServices.cs" />
     <Compile Include="Library\Service.cs" />
     <Compile Include="Library\ServiceOutage.cs" />
